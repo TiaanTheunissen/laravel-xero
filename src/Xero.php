@@ -18,6 +18,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use RuntimeException;
 
 /**
@@ -298,6 +299,8 @@ class Xero
             ];
         } catch (RequestException $e) {
             $response = json_decode($e->response->body());
+            Log::error($response);
+            
             throw new Exception($response->Detail ?? "Type: $response?->Type Message: $response?->Message Error Number: $response?->ErrorNumber");
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
