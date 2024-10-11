@@ -299,7 +299,7 @@ class Xero
             ];
         } catch (RequestException $e) {
             $response = json_decode($e->response->body());
-            Log::error($response);
+            Log::error($e->response->body());
             
             throw new Exception($response->Detail ?? "Type: $response?->Type Message: $response?->Message Error Number: $response?->ErrorNumber");
         } catch (Exception $e) {
